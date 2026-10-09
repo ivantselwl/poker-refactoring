@@ -10,9 +10,4 @@ public class BonusPolicy {
         boolean c = evaluator.isFullHouse(hand);
         return (a && b) || c;
     }
-
-    // Kept from the earlier straight-flush-only bonus rule.
-    private boolean qualifiesOldRules(List<Card> hand) {
-        return evaluator.isStraight(hand) && evaluator.isFlush(hand);
-    }
 }
