@@ -49,6 +49,10 @@ class PokerHandEvaluatorTest {
         var hand = List.copyOf(Hands.of("6C 2D 5H 3S 4C"));
         assertEquals(STRAIGHT, evaluator.classify(hand));
     }
+    @Test void flushCheck() {
+        assertTrue(evaluator.isFlush(Hands.of("2H 5H 8H JH KH")));
+        assertFalse(evaluator.isFlush(Hands.of("2C 3D 4H 5S 6C")));
+    }
     @Test void publicFullHouseHelperStillWorks() {
         assertTrue(evaluator.isFullHouse(Hands.of("7C 7D 7H 9S 9C")));
         assertFalse(evaluator.isFullHouse(Hands.of("7C 7D 7H 9S KC")));

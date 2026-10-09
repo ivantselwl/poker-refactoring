@@ -42,11 +42,7 @@ public class PokerHandEvaluator {
     }
 
     public boolean isFullHouse(List<Card> hand) {
-        Map<Integer, Integer> counts = new HashMap<>();
-        for (Card card : hand) {
-            counts.merge(card.rank(), 1, Integer::sum);
-        }
-        return counts.containsValue(3) && counts.containsValue(2);
+        return rankCounts(hand).containsValue(3) && rankCounts(hand).containsValue(2);
     }
 
     private Map<Integer, Integer> rankCounts(List<Card> hand) {
