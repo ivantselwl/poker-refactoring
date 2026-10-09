@@ -13,11 +13,11 @@ public class PokerHandEvaluator {
         Map<Integer, Integer> counts = rankCounts(hand);
         if (straight && flush) return STRAIGHT_FLUSH;
         if (counts.containsValue(4)) return FOUR_OF_A_KIND;
-        if (isFullHouse(hand)) return FULL_HOUSE;
+        if (isFullHouse(counts)) return FULL_HOUSE;
         if (flush) return FLUSH;
         if (straight) return STRAIGHT;
         if (counts.containsValue(3)) return THREE_OF_A_KIND;
-        long pairs = counts.values().stream().filter(n -> n == 2).count();
+        int pairs = (int) counts.values().stream().filter(n -> n == 2).count();
         if (pairs == 2) return TWO_PAIR;
         if (pairs == 1) return ONE_PAIR;
         return HIGH_CARD;
@@ -42,10 +42,10 @@ public class PokerHandEvaluator {
     }
 
     public boolean isFullHouse(List<Card> hand) {
-        Map<Integer, Integer> counts = new HashMap<>();
-        for (Card card : hand) {
-            counts.merge(card.rank(), 1, Integer::sum);
-        }
+        return isFullHouse(rankCounts(hand));
+    }
+
+    private boolean isFullHouse(Map<Integer, Integer> counts) {
         return counts.containsValue(3) && counts.containsValue(2);
     }
 
